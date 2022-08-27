@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MedicAid01.Models.patientapp>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Go back?", "../PATIENTINFOes/Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.patientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Doctortype)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.patientName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Doctortype)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.patientId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.patientId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.patientId })
+        </td>*@
+
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = item.patientId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.patientId })
+
+    </td>
+
+
+    </tr>
+}
+
+</table>

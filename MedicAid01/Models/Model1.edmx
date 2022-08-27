@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="newModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminFirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AdminLastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AdminPhoneNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="DoctorId" />
+          </Key>
+          <Property Name="DoctorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoctorFirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DoctorLastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Specialize" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DoctorPhoneNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="MedicineId" />
+          </Key>
+          <Property Name="MedicineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MedicineName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MedicineAmount" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdminID" Type="int" />
+          <Property Name="PatientInfoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientFirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PatientLastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PatientPhoneNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="patientapp">
+          <Key>
+            <PropertyRef Name="patientId" />
+          </Key>
+          <Property Name="patientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="patientName" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Doctortype" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PATIENTINFO">
+          <Key>
+            <PropertyRef Name="PatientInfoId" />
+          </Key>
+          <Property Name="PatientInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientFirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PatientLastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MedicalHistory" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BloodGrp" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reportPatient">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Symptom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Diagnosis" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PrescribedMedicine" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DoctorId" Type="int" Nullable="false" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Medicine__AdminI__1BFD2C07">
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="0..1" />
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrator">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="Medicine">
+              <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Medicine__Patien__1CF15040">
+          <End Role="PATIENTINFO" Type="Self.PATIENTINFO" Multiplicity="1" />
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATIENTINFO">
+              <PropertyRef Name="PatientInfoId" />
+            </Principal>
+            <Dependent Role="Medicine">
+              <PropertyRef Name="PatientInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PATIENTIN__Patie__117F9D94">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="PATIENTINFO" Type="Self.PATIENTINFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PATIENTINFO">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__reportPat__Docto__22AA2996">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="reportPatient" Type="Self.reportPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorId" />
+            </Principal>
+            <Dependent Role="reportPatient">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__reportPat__Patie__239E4DCF">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="reportPatient" Type="Self.reportPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="reportPatient">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="newModelStoreContainer">
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicine" EntityType="Self.Medicine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="patientapp" EntityType="Self.patientapp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PATIENTINFO" EntityType="Self.PATIENTINFO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reportPatient" EntityType="Self.reportPatient" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Medicine__AdminI__1BFD2C07" Association="Self.FK__Medicine__AdminI__1BFD2C07">
+            <End Role="Administrator" EntitySet="Administrator" />
+            <End Role="Medicine" EntitySet="Medicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medicine__Patien__1CF15040" Association="Self.FK__Medicine__Patien__1CF15040">
+            <End Role="PATIENTINFO" EntitySet="PATIENTINFO" />
+            <End Role="Medicine" EntitySet="Medicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PATIENTIN__Patie__117F9D94" Association="Self.FK__PATIENTIN__Patie__117F9D94">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="PATIENTINFO" EntitySet="PATIENTINFO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reportPat__Docto__22AA2996" Association="Self.FK__reportPat__Docto__22AA2996">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="reportPatient" EntitySet="reportPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reportPat__Patie__239E4DCF" Association="Self.FK__reportPat__Patie__239E4DCF">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="reportPatient" EntitySet="reportPatient" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="newModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminFirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminLastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminPhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Medicines" Relationship="Self.FK__Medicine__AdminI__1BFD2C07" FromRole="Administrator" ToRole="Medicine" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="DoctorId" />
+          </Key>
+          <Property Name="DoctorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoctorFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DoctorLastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Specialize" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DoctorPhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="reportPatients" Relationship="Self.FK__reportPat__Docto__22AA2996" FromRole="Doctor" ToRole="reportPatient" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="MedicineId" />
+          </Key>
+          <Property Name="MedicineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MedicineName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MedicineAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminID" Type="Int32" />
+          <Property Name="PatientInfoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Administrator" Relationship="Self.FK__Medicine__AdminI__1BFD2C07" FromRole="Medicine" ToRole="Administrator" />
+          <NavigationProperty Name="PATIENTINFO" Relationship="Self.FK__Medicine__Patien__1CF15040" FromRole="Medicine" ToRole="PATIENTINFO" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientFirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientLastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientPhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PATIENTINFOes" Relationship="Self.FK__PATIENTIN__Patie__117F9D94" FromRole="Patient" ToRole="PATIENTINFO" />
+          <NavigationProperty Name="reportPatients" Relationship="Self.FK__reportPat__Patie__239E4DCF" FromRole="Patient" ToRole="reportPatient" />
+        </EntityType>
+        <EntityType Name="patientapp">
+          <Key>
+            <PropertyRef Name="patientId" />
+          </Key>
+          <Property Name="patientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="patientName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Doctortype" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PATIENTINFO">
+          <Key>
+            <PropertyRef Name="PatientInfoId" />
+          </Key>
+          <Property Name="PatientInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientFirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientLastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MedicalHistory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BloodGrp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Medicines" Relationship="Self.FK__Medicine__Patien__1CF15040" FromRole="PATIENTINFO" ToRole="Medicine" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__PATIENTIN__Patie__117F9D94" FromRole="PATIENTINFO" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="reportPatient">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Symptom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Diagnosis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PrescribedMedicine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK__reportPat__Docto__22AA2996" FromRole="reportPatient" ToRole="Doctor" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__reportPat__Patie__239E4DCF" FromRole="reportPatient" ToRole="Patient" />
+        </EntityType>
+        <Association Name="FK__Medicine__AdminI__1BFD2C07">
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="0..1" />
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrator">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="Medicine">
+              <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__reportPat__Docto__22AA2996">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="reportPatient" Type="Self.reportPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorId" />
+            </Principal>
+            <Dependent Role="reportPatient">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Medicine__Patien__1CF15040">
+          <End Role="PATIENTINFO" Type="Self.PATIENTINFO" Multiplicity="1" />
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATIENTINFO">
+              <PropertyRef Name="PatientInfoId" />
+            </Principal>
+            <Dependent Role="Medicine">
+              <PropertyRef Name="PatientInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PATIENTIN__Patie__117F9D94">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="PATIENTINFO" Type="Self.PATIENTINFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PATIENTINFO">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__reportPat__Patie__239E4DCF">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="reportPatient" Type="Self.reportPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="reportPatient">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="newEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrators" EntityType="Self.Administrator" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="Medicines" EntityType="Self.Medicine" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="patientapps" EntityType="Self.patientapp" />
+          <EntitySet Name="PATIENTINFOes" EntityType="Self.PATIENTINFO" />
+          <EntitySet Name="reportPatients" EntityType="Self.reportPatient" />
+          <AssociationSet Name="FK__Medicine__AdminI__1BFD2C07" Association="Self.FK__Medicine__AdminI__1BFD2C07">
+            <End Role="Administrator" EntitySet="Administrators" />
+            <End Role="Medicine" EntitySet="Medicines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reportPat__Docto__22AA2996" Association="Self.FK__reportPat__Docto__22AA2996">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="reportPatient" EntitySet="reportPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medicine__Patien__1CF15040" Association="Self.FK__Medicine__Patien__1CF15040">
+            <End Role="PATIENTINFO" EntitySet="PATIENTINFOes" />
+            <End Role="Medicine" EntitySet="Medicines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PATIENTIN__Patie__117F9D94" Association="Self.FK__PATIENTIN__Patie__117F9D94">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="PATIENTINFO" EntitySet="PATIENTINFOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reportPat__Patie__239E4DCF" Association="Self.FK__reportPat__Patie__239E4DCF">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="reportPatient" EntitySet="reportPatients" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="newModelStoreContainer" CdmEntityContainer="newEntities3">
+          <EntitySetMapping Name="Administrators">
+            <EntityTypeMapping TypeName="newModel.Administrator">
+              <MappingFragment StoreEntitySet="Administrator">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="AdminFirstName" ColumnName="AdminFirstName" />
+                <ScalarProperty Name="AdminLastName" ColumnName="AdminLastName" />
+                <ScalarProperty Name="AdminPhoneNo" ColumnName="AdminPhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="newModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="DoctorFirstName" ColumnName="DoctorFirstName" />
+                <ScalarProperty Name="DoctorLastName" ColumnName="DoctorLastName" />
+                <ScalarProperty Name="Specialize" ColumnName="Specialize" />
+                <ScalarProperty Name="DoctorPhoneNo" ColumnName="DoctorPhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicines">
+            <EntityTypeMapping TypeName="newModel.Medicine">
+              <MappingFragment StoreEntitySet="Medicine">
+                <ScalarProperty Name="MedicineId" ColumnName="MedicineId" />
+                <ScalarProperty Name="MedicineName" ColumnName="MedicineName" />
+                <ScalarProperty Name="MedicineAmount" ColumnName="MedicineAmount" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="PatientInfoId" ColumnName="PatientInfoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="newModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="PatientFirstName" ColumnName="PatientFirstName" />
+                <ScalarProperty Name="PatientLastName" ColumnName="PatientLastName" />
+                <ScalarProperty Name="PatientPhoneNo" ColumnName="PatientPhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patientapps">
+            <EntityTypeMapping TypeName="newModel.patientapp">
+              <MappingFragment StoreEntitySet="patientapp">
+                <ScalarProperty Name="patientId" ColumnName="patientId" />
+                <ScalarProperty Name="patientName" ColumnName="patientName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Doctortype" ColumnName="Doctortype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PATIENTINFOes">
+            <EntityTypeMapping TypeName="newModel.PATIENTINFO">
+              <MappingFragment StoreEntitySet="PATIENTINFO">
+                <ScalarProperty Name="PatientInfoId" ColumnName="PatientInfoId" />
+                <ScalarProperty Name="PatientFirstName" ColumnName="PatientFirstName" />
+                <ScalarProperty Name="PatientLastName" ColumnName="PatientLastName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="MedicalHistory" ColumnName="MedicalHistory" />
+                <ScalarProperty Name="BloodGrp" ColumnName="BloodGrp" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reportPatients">
+            <EntityTypeMapping TypeName="newModel.reportPatient">
+              <MappingFragment StoreEntitySet="reportPatient">
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+                <ScalarProperty Name="Symptom" ColumnName="Symptom" />
+                <ScalarProperty Name="Diagnosis" ColumnName="Diagnosis" />
+                <ScalarProperty Name="PrescribedMedicine" ColumnName="PrescribedMedicine" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

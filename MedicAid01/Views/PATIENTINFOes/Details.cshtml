@@ -1,0 +1,82 @@
+﻿@model MedicAid01.Models.PATIENTINFO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PATIENTINFO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalHistory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalHistory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BloodGrp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BloodGrp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.PatientFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.PatientFirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PatientInfoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

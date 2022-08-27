@@ -1,0 +1,87 @@
+﻿@model IEnumerable<MedicAid01.Models.PATIENTINFO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("See all a appointments!", "../patientapps/index")
+</p>
+<p>
+    @Html.ActionLink("Give a Prescription !!!", "../reportPatients/create")
+</p>
+
+
+
+<table class="table">
+    <tr>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.PatientFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicalHistory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BloodGrp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Patient.PatientFirstName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedicalHistory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BloodGrp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.PatientFirstName)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.PatientInfoId }) |
+            </td>
+        </tr>
+    }
+
+<p>
+    @Html.ActionLink("LogOut", "../Doctors1/LogIn")
+   
+  
+</p>
+
+</table>

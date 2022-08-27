@@ -1,0 +1,58 @@
+﻿@model MedicAid01.Models.reportPatient
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>reportPatient</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Symptom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Symptom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diagnosis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diagnosis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrescribedMedicine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrescribedMedicine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.DoctorFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.DoctorFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.PatientFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.PatientFirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReportId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
